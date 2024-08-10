@@ -7,7 +7,7 @@ alvik.begin()
 sleep_ms(5000)  # waiting for the robot to setup
 distance = 5
 degrees = 5.00
-speed = 12.00
+speed = 13.00
 
 while (True):
 
