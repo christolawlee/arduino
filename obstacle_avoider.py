@@ -5,7 +5,7 @@ import sys
 alvik = ArduinoAlvik()
 alvik.begin()
 sleep_ms(5000)  # waiting for the robot to setup
-distance = 5
+distance = 700
 degrees = 5.00
 speed = 13.00
 
