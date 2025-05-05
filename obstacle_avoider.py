@@ -9,21 +9,22 @@ distance = 700
 degrees = 15.00
 speed = 5.00
 
-while (True):
-
-    distance_l, distance_cl, distance_c, distance_r, distance_cr  = alvik.get_distance()
-    sleep_ms(1)
-    print(distance_c)
-
-    if distance_c < distance:
-        alvik.rotate(degrees, 'deg')
-    elif distance_cl < distance:
-        alvik.rotate(degrees, 'deg')
-    elif distance_cr < distance:
-        alvik.rotate(degrees, 'deg')
-    elif distance_l < distance:
-        alvik.rotate(degrees, 'deg')
-    elif distance_r < distance:
-        alvik.rotate(degrees, 'deg')
-    else:
-        alvik.drive(speed, 0.0, linear_unit='cm/s')
+def run():
+    while (True):
+    
+        distance_l, distance_cl, distance_c, distance_r, distance_cr  = alvik.get_distance()
+        sleep_ms(1)
+        print(distance_c)
+    
+        if distance_c < distance:
+            alvik.rotate(degrees, 'deg')
+        elif distance_cl < distance:
+            alvik.rotate(degrees, 'deg')
+        elif distance_cr < distance:
+            alvik.rotate(degrees, 'deg')
+        elif distance_l < distance:
+            alvik.rotate(degrees, 'deg')
+        elif distance_r < distance:
+            alvik.rotate(degrees, 'deg')
+        else:
+            alvik.drive(speed, 0.0, linear_unit='cm/s')
