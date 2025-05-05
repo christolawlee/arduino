@@ -6,7 +6,7 @@ alvik = ArduinoAlvik()
 alvik.begin()
 sleep_ms(5000)  # waiting for the robot to setup
 distance = 700
-degrees = 30.00
+degrees = 45.00
 speed = 5.00
 
 def run():
@@ -29,6 +29,4 @@ def run():
         # else:
         #     alvik.drive(speed, 0.0, linear_unit='cm/s')
         alvik.rotate(degrees, 'deg')
-        sleep_ms(1)
-        alvik.rotate(-degrees, 'deg')
-        sleep_ms(1)
+        sleep_ms(1000)
