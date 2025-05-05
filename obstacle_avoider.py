@@ -28,5 +28,10 @@ def run():
         #     alvik.rotate(degrees, 'deg')
         # else:
         #     alvik.drive(speed, 0.0, linear_unit='cm/s')
-        alvik.rotate(degrees, 'deg')
-        sleep_ms(1000)
+        
+        # Rotate the robot 90 degrees to the right
+        alvik.rotate(90, 'deg')
+        sleep_ms(1000)  # Wait for 1 second
+        # Rotate the robot 90 degrees to the left
+        alvik.rotate(-90, 'deg')
+        sleep_ms(1000)  # Wait for 1 second
