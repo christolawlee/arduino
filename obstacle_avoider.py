@@ -7,12 +7,13 @@ alvik.begin()
 sleep_ms(5000)  # Wait for the robot to set up
 
 # Parameters
-safe_distance = 15  # Minimum safe distance in cm
-safe_distance_c = 10
-speed = 40.00        # Movement speed
+safe_distance_outer = 15  # Minimum safe distance in cm
+safe_distance_inner = 10
+safe_distance_center = 5
+speed = 60.00        # Movement speed
 reverse_distance = -5.00
-rotation_angle = 10  # Angle to rotate when avoiding obstacles
-pause_time = 100
+rotation_angle = 15  # Angle to rotate when avoiding obstacles
+pause_time = 10
 last_obstacle = 0
 
 while True:
@@ -31,7 +32,7 @@ while True:
     print(f"Distances - Left: {distance_l} cm, Center Left: {distance_cl} cm, Center: {distance_c} cm, Center Right: {distance_cr} cm, Right: {distance_r} cm")
 
     # Obstacle avoidance logic
-    if distance_c < safe_distance_c:
+    if distance_c < safe_distance_center:
         print(f"Obstacle detected ahead at {distance_c} cm! Rotating...")
         alvik.brake()
         # alvik.move(reverse_distance)
@@ -40,29 +41,29 @@ while True:
         else:
             alvik.rotate(rotation_angle, 'deg')  # Rotate 90 degrees to the right
         sleep_ms(pause_time)
-    elif distance_cl < safe_distance:
+    elif distance_cl < safe_distance_inner:
         last_obstacle = 1
         print(f"Obstacle detected on center-left at {distance_cl} cm! Rotating right...")
         alvik.brake()
         # alvik.move(reverse_distance)
         alvik.rotate(rotation_angle, 'deg')
         sleep_ms(pause_time)
-    elif distance_cr < safe_distance:
-        last_obstacle = -1
+    elif distance_cr < safe_distance_inner:
+        last_obstacle = 0
         print(f"Obstacle detected on center-right at {distance_cr} cm! Rotating left...")
         alvik.brake()
         # alvik.move(reverse_distance)
         alvik.rotate(-rotation_angle, 'deg')  # Rotate 90 degrees to the left
         sleep_ms(pause_time)
-    elif distance_l < safe_distance:
+    elif distance_l < safe_distance_outer:
         last_obstacle = 1
         print(f"Obstacle detected on the left at {distance_l} cm! Rotating right...")
         alvik.brake()
         # alvik.move(reverse_distance)
         alvik.rotate(rotation_angle, 'deg')
         sleep_ms(pause_time)
-    elif distance_r < safe_distance:
-        last_obstacle = -1
+    elif distance_r < safe_distance_outer:
+        last_obstacle = 0
         print(f"Obstacle detected on the right at {distance_r} cm! Rotating left...")
         alvik.brake()
         # alvik.move(reverse_distance)
