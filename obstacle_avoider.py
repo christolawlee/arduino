@@ -13,7 +13,7 @@ safe_distance_center = 5
 speed = 100.00        # Movement speed
 reverse_distance = -5.00
 rotation_angle = 15  # Angle to rotate when avoiding obstacles
-pause_time = 500
+pause_time = 100
 last_obstacle = 1
 
 while True:
