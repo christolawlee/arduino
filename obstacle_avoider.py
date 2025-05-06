@@ -1,37 +1,56 @@
 from arduino_alvik import ArduinoAlvik
 from time import sleep_ms
-import sys
 
+# Initialize the ArduinoAlvik object
 alvik = ArduinoAlvik()
 alvik.begin()
-sleep_ms(5000)  # waiting for the robot to setup
-distance = 700
-degrees = 45.00
-speed = 5.00
+sleep_ms(5000)  # Wait for the robot to set up
 
-def run():
-    while (True):
-    
-        # distance_l, distance_cl, distance_c, distance_r, distance_cr  = alvik.get_distance()
-        # sleep_ms(1)
-        # print(distance_c)
-    
-        # if distance_c < distance:
-        #     alvik.rotate(degrees, 'deg')
-        # elif distance_cl < distance:
-        #     alvik.rotate(degrees, 'deg')
-        # elif distance_cr < distance:
-        #     alvik.rotate(degrees, 'deg')
-        # elif distance_l < distance:
-        #     alvik.rotate(degrees, 'deg')
-        # elif distance_r < distance:
-        #     alvik.rotate(degrees, 'deg')
-        # else:
-        #     alvik.drive(speed, 0.0, linear_unit='cm/s')
-        
-        # Rotate the robot 90 degrees to the right
-        alvik.rotate(90, 'deg')
-        sleep_ms(1000)  # Wait for 1 second
-        # Rotate the robot 90 degrees to the left
-        alvik.rotate(-90, 'deg')
-        sleep_ms(1000)  # Wait for 1 second
+# Parameters
+safe_distance = 200  # Minimum safe distance in mm
+speed = 20.00        # Movement speed
+rotation_angle = 90  # Angle to rotate when avoiding obstacles
+
+while True:
+    # Small delay to prevent excessive polling
+    sleep_ms(10)
+
+    # Get distance readings from ToF sensors
+    distance_l = alvik.get_distance_left()
+    distance_cl = alvik.get_distance_center_left()
+    distance_c = alvik.get_distance_center()
+    distance_cr = alvik.get_distance_center_right()
+    distance_r = alvik.get_distance_right()
+
+    # Print distance readings for debugging
+    print(f"Distances - Left: {distance_l} mm, Center Left: {distance_cl} mm, Center: {distance_c} mm, Center Right: {distance_cr} mm, Right: {distance_r} mm")
+
+    # Obstacle avoidance logic
+    if distance_c < safe_distance:
+        print(f"Obstacle detected ahead at {distance_c} mm! Rotating...")
+        alvik.stop()  # Stop the robot
+        alvik.rotate(rotation_angle, 'deg')  # Rotate 90 degrees to the right
+        sleep_ms(1000)  # Wait for the rotation to complete
+    elif distance_cl < safe_distance:
+        print(f"Obstacle detected on center-left at {distance_cl} mm! Rotating right...")
+        alvik.stop()
+        alvik.rotate(rotation_angle, 'deg')  # Rotate 90 degrees to the right
+        sleep_ms(1000)
+    elif distance_cr < safe_distance:
+        print(f"Obstacle detected on center-right at {distance_cr} mm! Rotating left...")
+        alvik.stop()
+        alvik.rotate(-rotation_angle, 'deg')  # Rotate 90 degrees to the left
+        sleep_ms(1000)
+    elif distance_l < safe_distance:
+        print(f"Obstacle detected on the left at {distance_l} mm! Rotating right...")
+        alvik.stop()
+        alvik.rotate(rotation_angle, 'deg')  # Rotate 90 degrees to the right
+        sleep_ms(1000)
+    elif distance_r < safe_distance:
+        print(f"Obstacle detected on the right at {distance_r} mm! Rotating left...")
+        alvik.stop()
+        alvik.rotate(-rotation_angle, 'deg')  # Rotate 90 degrees to the left
+        sleep_ms(1000)
+    else:
+        print("Path is clear. Moving forward...")
+        alvik.move_forward(speed)  # Move forward if no obstacles are detected
