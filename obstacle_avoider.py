@@ -23,11 +23,7 @@ while True:
     sleep_ms(10)
 
     # Get distance readings from ToF sensors
-    distance_l = alvik.get_distance(SENSOR_LEFT)
-    distance_cl = alvik.get_distance(SENSOR_CENTER_LEFT)
-    distance_c = alvik.get_distance(SENSOR_CENTER)
-    distance_cr = alvik.get_distance(SENSOR_CENTER_RIGHT)
-    distance_r = alvik.get_distance(SENSOR_RIGHT)
+    distance_l, distance_cl, distance_c, distance_cr, distance_r = alvik.get_distance()
 
     # Print distance readings for debugging
     print(f"Distances - Left: {distance_l} mm, Center Left: {distance_cl} mm, Center: {distance_c} mm, Center Right: {distance_cr} mm, Right: {distance_r} mm")
