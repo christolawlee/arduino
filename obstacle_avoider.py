@@ -54,4 +54,4 @@ while True:
         sleep_ms(1000)
     else:
         print("Path is clear. Moving forward...")
-        alvik.move_forward(speed)  # Move forward if no obstacles are detected
+        alvik.move(speed)  # Move forward if no obstacles are detected
