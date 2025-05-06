@@ -37,9 +37,9 @@ while True:
         alvik.brake()
         # alvik.move(reverse_distance)
         if last_obstacle == 1:
-            alvik.rotate(rotation_angle, 'deg')  # Rotate 90 degrees to the right
-        else:
             alvik.rotate(-rotation_angle, 'deg')  # Rotate 90 degrees to the right
+        else:
+            alvik.rotate(rotation_angle, 'deg')  # Rotate 90 degrees to the right
         sleep_ms(pause_time)
     elif distance_cl < safe_distance_inner:
         last_obstacle = 1
