@@ -11,16 +11,23 @@ safe_distance = 200  # Minimum safe distance in mm
 speed = 20.00        # Movement speed
 rotation_angle = 90  # Angle to rotate when avoiding obstacles
 
+# Sensor IDs (based on the API documentation)
+SENSOR_LEFT = 0
+SENSOR_CENTER_LEFT = 1
+SENSOR_CENTER = 2
+SENSOR_CENTER_RIGHT = 3
+SENSOR_RIGHT = 4
+
 while True:
     # Small delay to prevent excessive polling
     sleep_ms(10)
 
     # Get distance readings from ToF sensors
-    distance_l = alvik.get_distance_left()
-    distance_cl = alvik.get_distance_center_left()
-    distance_c = alvik.get_distance_center()
-    distance_cr = alvik.get_distance_center_right()
-    distance_r = alvik.get_distance_right()
+    distance_l = alvik.get_distance(SENSOR_LEFT)
+    distance_cl = alvik.get_distance(SENSOR_CENTER_LEFT)
+    distance_c = alvik.get_distance(SENSOR_CENTER)
+    distance_cr = alvik.get_distance(SENSOR_CENTER_RIGHT)
+    distance_r = alvik.get_distance(SENSOR_RIGHT)
 
     # Print distance readings for debugging
     print(f"Distances - Left: {distance_l} mm, Center Left: {distance_cl} mm, Center: {distance_c} mm, Center Right: {distance_cr} mm, Right: {distance_r} mm")
