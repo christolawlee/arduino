@@ -29,27 +29,27 @@ while True:
     # Obstacle avoidance logic
     if distance_c < safe_distance:
         print(f"Obstacle detected ahead at {distance_c} mm! Rotating...")
-        alvik.stop()
+        alvik.brake()
         alvik.rotate(rotation_angle, 'deg')  # Rotate 90 degrees to the right
         sleep_ms(1000)
     elif distance_cl < safe_distance:
         print(f"Obstacle detected on center-left at {distance_cl} mm! Rotating right...")
-        alvik.stop()
+        alvik.brake()
         alvik.rotate(rotation_angle, 'deg')
         sleep_ms(1000)
     elif distance_cr < safe_distance:
         print(f"Obstacle detected on center-right at {distance_cr} mm! Rotating left...")
-        alvik.stop()
+        alvik.brake()
         alvik.rotate(-rotation_angle, 'deg')  # Rotate 90 degrees to the left
         sleep_ms(1000)
     elif distance_l < safe_distance:
         print(f"Obstacle detected on the left at {distance_l} mm! Rotating right...")
-        alvik.stop()
+        alvik.brake()
         alvik.rotate(rotation_angle, 'deg')
         sleep_ms(1000)
     elif distance_r < safe_distance:
         print(f"Obstacle detected on the right at {distance_r} mm! Rotating left...")
-        alvik.stop()
+        alvik.brake()
         alvik.rotate(-rotation_angle, 'deg')
         sleep_ms(1000)
     else:
