@@ -12,7 +12,7 @@ safe_distance_inner = 10
 safe_distance_center = 5
 speed = 100.00        # Movement speed
 reverse_distance = -5.00
-rotation_angle = 15  # Angle to rotate when avoiding obstacles
+rotation_angle = 45  # Angle to rotate when avoiding obstacles
 pause_time = 10
 last_obstacle = 0
 
@@ -48,19 +48,19 @@ while True:
         # alvik.move(reverse_distance)
         alvik.rotate(rotation_angle, 'deg')
         sleep_ms(pause_time)
-    elif distance_cr < safe_distance_inner:
-        last_obstacle = 0
-        print(f"Obstacle detected on center-right at {distance_cr} cm! Rotating left...")
-        alvik.brake()
-        # alvik.move(reverse_distance)
-        alvik.rotate(-rotation_angle, 'deg')  # Rotate 90 degrees to the left
-        sleep_ms(pause_time)
     elif distance_l < safe_distance_outer:
         last_obstacle = 1
         print(f"Obstacle detected on the left at {distance_l} cm! Rotating right...")
         alvik.brake()
         # alvik.move(reverse_distance)
         alvik.rotate(rotation_angle, 'deg')
+        sleep_ms(pause_time)
+    elif distance_cr < safe_distance_inner:
+        last_obstacle = 0
+        print(f"Obstacle detected on center-right at {distance_cr} cm! Rotating left...")
+        alvik.brake()
+        # alvik.move(reverse_distance)
+        alvik.rotate(-rotation_angle, 'deg')  # Rotate 90 degrees to the left
         sleep_ms(pause_time)
     elif distance_r < safe_distance_outer:
         last_obstacle = 0
