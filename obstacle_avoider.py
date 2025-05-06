@@ -11,13 +11,6 @@ safe_distance = 200  # Minimum safe distance in mm
 speed = 20.00        # Movement speed
 rotation_angle = 90  # Angle to rotate when avoiding obstacles
 
-# Sensor IDs (based on the API documentation)
-SENSOR_LEFT = 0
-SENSOR_CENTER_LEFT = 1
-SENSOR_CENTER = 2
-SENSOR_CENTER_RIGHT = 3
-SENSOR_RIGHT = 4
-
 while True:
     # Small delay to prevent excessive polling
     sleep_ms(10)
