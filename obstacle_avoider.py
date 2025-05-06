@@ -46,14 +46,14 @@ while True:
         print(f"Obstacle detected on center-left at {distance_cl} cm! Rotating right...")
         alvik.brake()
         # alvik.move(reverse_distance)
-        alvik.rotate(rotation_angle, 'deg')
+        alvik.rotate(-rotation_angle, 'deg')
         sleep_ms(pause_time)
     elif distance_l < safe_distance_outer:
         last_obstacle = 1
         print(f"Obstacle detected on the left at {distance_l} cm! Rotating right...")
         alvik.brake()
         # alvik.move(reverse_distance)
-        alvik.rotate(rotation_angle, 'deg')
+        alvik.rotate(-rotation_angle, 'deg')
         sleep_ms(pause_time)
     elif distance_cr < safe_distance_inner:
         last_obstacle = 0
