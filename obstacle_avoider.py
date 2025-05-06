@@ -12,7 +12,7 @@ safe_distance_inner = 10
 safe_distance_center = 5
 speed = 100.00        # Movement speed
 reverse_distance = -5.00
-rotation_angle = 45  # Angle to rotate when avoiding obstacles
+rotation_angle = 90  # Angle to rotate when avoiding obstacles
 pause_time = 10
 last_obstacle = 1
 
