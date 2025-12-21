@@ -224,9 +224,9 @@ Set in `config.h`:
 
 #### **Debug Configuration**
 ```c
-#define DEBUG_INIT_HOLD_TIME    5000  // Hold init complete (ms)
-#define DEBUG_CODE_DISPLAY_TIME 2000  // Show each code (ms)
-#define DEBUG_OFF_TIME          3000  // Lights off between cycles (ms)
+#define ENABLE_VISUAL_DEBUG 1    // Enable visual debugging
+#define ENABLE_SERIAL_DEBUG 0    // Enable serial debugging (requires adapter)
+#define DEBUG_MODE DEBUG_MODE_NORMAL  // Normal or threshold testing mode
 ```
 
 #### **Using Threshold Testing Mode**
@@ -242,7 +242,7 @@ For ATTiny85 with serial adapter:
 ```c
 #define ENABLE_SERIAL_DEBUG 1   // Connect PB4 to serial RX
 ```
-Uses ~1KB extra memory. Use Arduino Serial Monitor at 9600 baud.
+Uses ~1KB extra memory. Use Arduino Serial Monitor at 9600 baud. Shows text messages for mode changes, sleep events, etc.
 
 ## Customization
 

@@ -13,8 +13,8 @@
 #define BUTTON_COLOR_PIN 3  // PB3 - Button for cycling through colors
 
 // NeoPixel array configuration
-#define NUM_ROWS        2   // Number of rows in the rectangular array
-#define NUM_COLS        3   // Number of columns in the rectangular array
+#define NUM_ROWS        4   // Number of rows in the rectangular array
+#define NUM_COLS        2   // Number of columns in the rectangular array
 #define ORIENTATION     0   // 0 = row-major (left to right, top to bottom)
                           // 1 = column-major (top to bottom, left to right)
 
@@ -22,9 +22,9 @@
 #define NUM_PIXELS      (NUM_ROWS * NUM_COLS)
 
 // ========== BRIGHTNESS AND POWER CONFIGURATION ==========
-#define MAX_BRIGHTNESS  255   // Maximum brightness level (0-255)
-#define MIN_BRIGHTNESS  10    // Minimum brightness level (0-255)
-#define DEFAULT_BRIGHTNESS 128 // Default brightness when potentiometer is centered
+#define MAX_BRIGHTNESS  64   // Maximum brightness level (0-255)
+#define MIN_BRIGHTNESS  5    // Minimum brightness level (0-255)
+#define DEFAULT_BRIGHTNESS 32 // Default brightness when potentiometer is centered
 
 // Off/On thresholds with hysteresis - prevents rapid switching at threshold boundary
 // OFF_THRESHOLD: When potentiometer goes below this value, enter sleep mode
@@ -36,7 +36,7 @@
 #define ON_THRESHOLD  60  // Above this = ON (active mode) - adjust experimentally
 
 // Sleep timer configuration (in milliseconds)
-#define SLEEP_TIMEOUT   300000L // 5 minutes (300,000 ms) - time before sleep
+#define SLEEP_TIMEOUT   30000L // 30 seconds (30,000 ms) - time before sleep
 #define SLEEP_FADE_TIME 2000L   // 2 seconds - time to fade out before sleep
 
 // ========== MODE CONFIGURATION ==========
@@ -130,14 +130,9 @@
 #define ENABLE_VISUAL_DEBUG     0   // Use NeoPixels for visual debugging (recommended for ATTiny85)
 #define ENABLE_SERIAL_DEBUG     0   // Use SoftwareSerial on PB4 (requires serial adapter)
 
-// Debug timing configuration (in milliseconds)
-#define DEBUG_INIT_HOLD_TIME    5000  // How long to hold initialization complete state
-#define DEBUG_CODE_DISPLAY_TIME 2000  // How long to show each debug code
-#define DEBUG_OFF_TIME          3000  // How long to turn off debug lights between cycles
-
-// Debug mode selection
-#define DEBUG_MODE_NORMAL       0     // Normal debug cycle (startup → codes → repeat)
-#define DEBUG_MODE_THRESHOLD    1     // Threshold testing mode (startup → threshold display)
+// Debug mode selection (for visual debug)
+#define DEBUG_MODE_NORMAL       0     // Normal debug display (current status)
+#define DEBUG_MODE_THRESHOLD    1     // Threshold testing mode
 #define DEBUG_MODE              DEBUG_MODE_NORMAL  // Select debug mode when visual debug enabled
 
 // ========== VISUAL DEBUG COLOR CODES ==========
@@ -173,7 +168,6 @@
 // Pixel 2 - Button presses (brief flashes)
 #define DEBUG_BUTTON_MODE       {0, 0, 0, 0, 0, 0, 255, 255, 0}   // Yellow flash - mode button pressed
 #define DEBUG_BUTTON_COLOR      {0, 0, 0, 0, 0, 0, 0, 255, 255}   // Cyan flash - color button pressed
-#define DEBUG_BUTTON_NONE       {0, 0, 0, 0, 0, 0, 0, 0, 0}       // Off - no button activity
 
 // Threshold testing colors (shown continuously during threshold testing)
 #define DEBUG_THRESHOLD_OFF     {255, 0, 0, 0, 0, 0, 0, 0, 0}     // Red - below OFF threshold

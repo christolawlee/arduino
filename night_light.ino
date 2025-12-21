@@ -14,7 +14,7 @@
 #include <avr/sleep.h>
 #include <avr/interrupt.h>
 
-#if ENABLE_DEBUG
+#if ENABLE_SERIAL_DEBUG
 #include <SoftwareSerial.h>
 // Debug serial on PB4 (TX only - connect to serial adapter RX)
 SoftwareSerial debugSerial(-1, 4); // RX=-1 (not used), TX=PB4
@@ -38,9 +38,7 @@ bool wasPotOff = true; // Track previous potentiometer state
 #if ENABLE_VISUAL_DEBUG
 unsigned long debugLastUpdate = 0;
 uint8_t debugInitStep = 0;
-uint8_t debugCycleStep = 0;
 bool debugInitComplete = false;
-unsigned long debugInitStartTime = 0;
 #endif
 
 // Button state tracking
@@ -105,7 +103,7 @@ void setup() {
     // Set initial activity time
     lastActivityTime = millis();
 
-#if ENABLE_DEBUG
+#if ENABLE_SERIAL_DEBUG
     debugSerial.begin(9600);
     debugSerial.println("Night Light Initialized");
 #endif
@@ -199,7 +197,7 @@ void setupHardware() {
 void enterSleepMode() {
     isSleeping = true;
 
-#if ENABLE_DEBUG
+#if ENABLE_SERIAL_DEBUG
     debugSerial.println("Entering sleep mode...");
 #endif
 
@@ -222,7 +220,7 @@ void wakeFromSleep() {
     lastActivityTime = millis();
     sleepStartTime = 0;
 
-#if ENABLE_DEBUG
+#if ENABLE_SERIAL_DEBUG
     debugSerial.println("Woken from sleep");
 #endif
 }
@@ -616,11 +614,11 @@ uint32_t getCandlelightColor(uint8_t scheme) {
         case 0: // Orange/yellow flame color-spectrum (default)
             return getFlameColorSpectrum();
         case 1: // Blue lightness-spectrum
-            return getLightnessSpectrumColor(COLOR_BLUE, LIGHTNESS_MED_MIN, LIGHTNESS_MED_MAX);
+            return getLightnessSpectrumColor(pixels.Color(COLOR_BLUE), LIGHTNESS_MED_MIN, LIGHTNESS_MED_MAX);
         case 2: // Green lightness-spectrum
-            return getLightnessSpectrumColor(COLOR_GREEN, LIGHTNESS_MED_MIN, LIGHTNESS_MED_MAX);
+            return getLightnessSpectrumColor(pixels.Color(COLOR_GREEN), LIGHTNESS_MED_MIN, LIGHTNESS_MED_MAX);
         case 3: // White/yellow color-spectrum
-            return getColorSpectrum(COLOR_WHITE, COLOR_YELLOW);
+            return getColorSpectrum(pixels.Color(COLOR_WHITE), pixels.Color(COLOR_YELLOW));
         case 4: // Rainbow color-spectrum
             return pixels.Color(
                 (animationCounter * 5) % 256,      // Red
@@ -716,17 +714,17 @@ uint32_t getTwinkleColor(uint8_t scheme) {
         case 0: // White/light-blue stars color-brightness-spectrum (default)
             return getColorSpectrum(pixels.Color(COLOR_WHITE), pixels.Color(COLOR_LIGHT_BLUE));
         case 1: // Red lightness-brightness-spectrum
-            return getLightnessBrightnessSpectrum(COLOR_RED);
+            return getLightnessBrightnessSpectrum(pixels.Color(COLOR_RED));
         case 2: // Orange lightness-brightness-spectrum
-            return getLightnessBrightnessSpectrum(COLOR_ORANGE);
+            return getLightnessBrightnessSpectrum(pixels.Color(COLOR_ORANGE));
         case 3: // Yellow lightness-brightness-spectrum
-            return getLightnessBrightnessSpectrum(COLOR_YELLOW);
+            return getLightnessBrightnessSpectrum(pixels.Color(COLOR_YELLOW));
         case 4: // Green lightness-brightness-spectrum
-            return getLightnessBrightnessSpectrum(COLOR_GREEN);
+            return getLightnessBrightnessSpectrum(pixels.Color(COLOR_GREEN));
         case 5: // Blue lightness-brightness-spectrum
-            return getLightnessBrightnessSpectrum(COLOR_BLUE);
+            return getLightnessBrightnessSpectrum(pixels.Color(COLOR_BLUE));
         case 6: // Purple lightness-brightness-spectrum
-            return getLightnessBrightnessSpectrum(COLOR_PURPLE);
+            return getLightnessBrightnessSpectrum(pixels.Color(COLOR_PURPLE));
         case 7: // Rainbow color-spectrum
             return pixels.Color(
                 (animationCounter * 3) % 256,
