@@ -80,6 +80,7 @@ uint8_t getRandomLightness(uint8_t minRange, uint8_t maxRange);
 void fadeToBlack(uint8_t pixel, uint16_t duration);
 void setPixelColor(uint8_t pixel, uint32_t color);
 uint32_t dimColor(uint32_t color, uint8_t brightness);
+void playLedTimeline(const uint8_t *timeline, uint16_t steps, uint8_t numLeds, uint16_t stepDelayMs, uint32_t onColor);
 
 // ========== SETUP FUNCTION ==========
 
@@ -381,6 +382,23 @@ uint32_t dimColor(uint32_t color, uint8_t brightness) {
     b = (b * brightness) / 255;
 
     return pixels.Color(r, g, b);
+}
+
+// Plays a sequence of on/off states across N time steps.
+void playLedTimeline(const uint8_t *timeline, uint16_t steps, uint8_t numLeds, uint16_t stepDelayMs, uint32_t onColor) {
+    if (timeline == nullptr || steps == 0 || numLeds == 0) {
+        return;
+    }
+
+    for (uint16_t step = 0; step < steps; step++) {
+        for (uint8_t led = 0; led < numLeds; led++) {
+            uint32_t index = static_cast<uint32_t>(step) * numLeds + led;
+            uint32_t color = timeline[index] ? onColor : 0;
+            pixels.setPixelColor(led, color);
+        }
+        pixels.show();
+        delay(stepDelayMs);
+    }
 }
 
 uint8_t getRandomLightness(uint8_t minBrightness, uint8_t maxBrightness) {
